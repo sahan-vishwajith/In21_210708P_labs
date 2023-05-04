@@ -2,59 +2,68 @@
 using namespace std;
   
 // function to heapify the tree
+// This function recursively transforms the array into a max heap
 void heapify(int arr[], int n, int root)
 {
-    // build heapify
+    // Initialize the largest value to be the root
     int largest=root;
+  
+    // Find the indices of the left and right children
     int left  = (2*root) + 1;
     int right = (2*root) + 2;
-    int temp1;
+  
+    // If the left child is larger than the root, update the largest index
     if((left<n) && (arr[left]>arr[largest])){
         largest=left;
     }
+  
+    // If the right child is larger than the current largest, update it
     if((right<n) && (arr[right]>arr[largest])){
         largest=right;
     }
+  
+    // If the largest index isn't the root, swap the values and recursive call heapify on the new root
     if(root!=largest){
-        temp1=arr[root];
+        int temp=arr[root];
         arr[root]=arr[largest];
-        arr[largest]=temp1;
+        arr[largest]=temp;
         heapify(arr,n,largest);
     }
-  
-   
 }
-
+  
+// Prints the contents of the array
 void displayArray(int arr[], int n)
 {
     for (int i=0; i<n; ++i)
         cout << arr[i] << " ";
     cout << "\n";
 }
-// implementing heap sort
+
+// Implements the Heap Sort algorithm
 void heapSort(int arr[], int n)
 {
-   // build heap
+   // Build the initial heap by calling heapify on each non-leaf node in the tree
    for(int i=n/2;i>=0;i--){
        heapify(arr,n,i);
    }
-    displayArray(arr,n);
+  
+   // Display the array after building the heap
+   displayArray(arr,n);
+   
+   // Extract elements from the heap one by one
    int temp;
    for(int indx=n-1;indx>=0;indx--){
 
+       // Swap the root element with the last element in the heap and reduce the size of the heap
        temp=arr[0];
        arr[0]=arr[indx];
        arr[indx]=temp;
        n=n-1;
+       
+       // Call heapify on the new root to maintain the heap property
        heapify(arr,n,0);
    }
-  
-   // extracting elements from heap one by one
-   
 }
-  
-/* print contents of array */
-
 // main program
 int main()
 {
