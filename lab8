@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+  
+// function to heapify the tree
+void heapify(int arr[], int n, int root)
+{
+    // build heapify
+    int largest=root;
+    int left  = (2*root) + 1;
+    int right = (2*root) + 2;
+    int temp1;
+    if((left<n) && (arr[left]>arr[largest])){
+        largest=left;
+    }
+    if((right<n) && (arr[right]>arr[largest])){
+        largest=right;
+    }
+    if(root!=largest){
+        temp1=arr[root];
+        arr[root]=arr[largest];
+        arr[largest]=temp1;
+        heapify(arr,n,largest);
+    }
+  
+   
+}
+
+void displayArray(int arr[], int n)
+{
+    for (int i=0; i<n; ++i)
+        cout << arr[i] << " ";
+    cout << "\n";
+}
+// implementing heap sort
+void heapSort(int arr[], int n)
+{
+   // build heap
+   for(int i=n/2;i>=0;i--){
+       heapify(arr,n,i);
+   }
+    displayArray(arr,n);
+   int temp;
+   for(int indx=n-1;indx>=0;indx--){
+
+       temp=arr[0];
+       arr[0]=arr[indx];
+       arr[indx]=temp;
+       n=n-1;
+       heapify(arr,n,0);
+   }
+  
+   // extracting elements from heap one by one
+   
+}
+  
+/* print contents of array */
+
+// main program
+int main()
+{
+
+   int size;
+   int element;
+   cout<<"Input array size "<<endl;
+   cin>>size;
+   cout<<"Input array "<<endl;
+   int *heap_arr=new int[size];
+   for(int i=0;i<size;i++){
+       cin>>element;
+       heap_arr[i]=element;
+   }
+
+   int n = size;
+   displayArray(heap_arr,n);
+  
+   heapSort(heap_arr, n);
+  
+   cout << "Sorted array"<<endl;
+   displayArray(heap_arr, n);
+}
